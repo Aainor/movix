@@ -1,0 +1,354 @@
+:root {
+    --primary-color: #2e4053;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --light-color: #ecf0f1;
+    --dark-color: #2c3e50;
+    --overlay-color: rgba(46, 64, 83, 0.85);
+    --text-color: #333;
+    --text-light: #fff;
+    --shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos generales del body */
+body {
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    color: var(--text-color);
+    background: #f6f9fc;
+    background-color: var(--light-color);
+    height: 100vh;
+    margin: 0;
+}
+
+/* Layout principal */
+.page {
+    display: flex;
+    min-height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+/* Sección izquierda (info) */
+.info-left {
+    flex: 1;
+    background: white;
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;     
+    border-right: 1px solid #e3e8ee;
+    text-align: center;
+}
+
+.logo-grande {
+    width: 200px; 
+    margin-bottom: 0;
+}
+
+.info-left h1 {
+    font-size: 36px;
+    margin: 0;
+    color: #32325d;
+}
+
+.info-left p {
+    font-size: 16px;
+    color: #6b7c93;
+    max-width: 300px;
+}
+
+.logo {
+    color: var(--text-light);
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+/* Sección derecha (formulario) */
+.form-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 450px;
+    padding: 2.5rem;
+    transition: var(--transition);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.form-container {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(50,50,93,.1), 0 3px 10px rgba(0,0,0,.08);
+    max-width: 400px;
+    width: 100%;
+}
+
+.form-container, .user-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Elementos de formulario */
+h2 {
+    margin-bottom: 24px;
+    font-size: 20px;
+    color: #32325d;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+label {
+    font-weight: 600;
+    color: #4f566b;
+    margin-top: 12px;
+}
+
+.input-group {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+input, select, textarea {
+    margin-top: 6px;
+    margin-bottom: 16px;
+    padding: 10px;
+    padding: 15px 15px 15px 45px;
+    border-radius: 4px;
+    border: 1px solid #ccd0d5;
+    border: 2px solid #ddd;
+    width: 100%;
+    font-size: 14px;
+    font-size: 1rem;
+    transition: var(--transition);
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+input:focus {
+    border-color: var(--secondary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+/* Botones */
+button, .btn {
+    width: 100%;
+    background-color: #635bff;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px;
+    padding: 15px;
+    border: none;
+    border-radius: 6px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: background-color 0.3s ease;
+    transition: var(--transition);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+button:hover, .btn:hover {
+    background-color: #5144dc;
+    background-color: var(--dark-color);
+    transform: translateY(-2px);
+}
+
+.google-btn {
+    background-color: #fff;
+    color: var(--text-color);
+    border: 2px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.google-btn:hover {
+    background-color: #f8f9fa;
+    border-color: #ccc;
+}
+
+.google-btn i {
+    margin-right: 10px;
+    color: #db4437;
+    font-size: 1.2rem;
+}
+
+.logout-btn {
+    background-color: var(--accent-color);
+}
+
+.logout-btn:hover {
+    background-color: #c0392b;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Elementos varios */
+.auth-toggle {
+    margin-top: 1rem;
+    color: var(--text-color);
+}
+
+.auth-toggle span {
+    color: var(--secondary-color);
+    cursor: pointer;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.auth-toggle span:hover {
+    text-decoration: underline;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 1.5rem 0;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+.divider::before, .divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+}
+
+.divider span {
+    padding: 0 10px;
+}
+
+.user-info {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.user-info img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 3px solid var(--secondary-color);
+}
+
+.user-info h2 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.user-info p {
+    color: #666;
+}
+
+/* Slideshow */
+.slideshow-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.mySlides {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.mySlides img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--overlay-color);
+    z-index: -1;
+}
+
+/* Form steps */
+.form-step {
+    display: none;
+}
+
+.form-step.active {
+    display: block;
+}
+
+/* Clases utilitarias */
+.hidden {
+    display: none !important;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-container, .user-container {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .auth-container {
+        padding: 1.5rem;
+    }
+    
+    .logo {
+        font-size: 2.5rem;
+    }
+}
