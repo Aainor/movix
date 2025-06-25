@@ -211,6 +211,14 @@ input:focus {
     margin-bottom: 2rem;
 }
 
+.user-info {
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
 .user-info img {
     width: 100px;
     height: 100px;
@@ -227,6 +235,14 @@ input:focus {
 
 .user-info p {
     color: #666;
+}
+
+#user-photo{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
 }
 
 .logout-btn {
