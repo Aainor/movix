@@ -1,105 +1,109 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Formulario Movix</title>
-    <link rel="shortcut icon" href="../images/camion.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="../css/formulario.css" />
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Cabin&display=swap");
-    </style>
-  </head>
+ <head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Formulario Movix</title>
+   <link rel="shortcut icon" href="../images/camion.ico" type="image/x-icon" />
+   <link rel="stylesheet" href="../css/formulario.css" />
+   <style>
+     @import url("https://fonts.googleapis.com/css2?family=Cabin&display=swap");
 
-  <body>
-    <div class="page">
+    /* Ocultar el contenedor del formulario por defecto */
+    #main-form-content.hidden {
+        display: none;
+    }
+    /* Ocultar el mensaje de no logueado por defecto (se muestra con JS si es necesario) */
+    #not-logged-in-message.hidden {
+        display: none;
+    }
+    /* Algunos estilos básicos para el mensaje de no logueado */
+    #not-logged-in-message {
+        text-align: center;
+        margin-top: 50px;
+        padding: 20px;
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+        border-radius: 5px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #not-logged-in-message a {
+        color: #007bff;
+        text-decoration: underline;
+    }
+     </style>
+   </head>
+
+   <body>
+     <div class="page">
       <div class="info-left">
-        <img src="../images/camion.ico" alt="Movix" class="logo-grande" />
-        <p>Mudanzas eficientes, seguras y puntuales.</p>
-      </div>
+         <img src="../images/camion.ico" alt="Movix" class="logo-grande" />
+       <p>Mudanzas eficientes, seguras y puntuales.</p>
+     </div>
 
-      <div class="form-right">
-        <div class="form-container">
-          <form id="multiStepForm">
-            <div class="form-step active">
-              <h2>Información personal</h2>
-              <label>Nombre completo:</label>
-              <input type="text" id="nombre" required />
+       <div class="form-right">
+            <div id="main-form-content" class="form-container hidden"> 
+                <form id="multiStepForm">
+                    <div class="form-step active">
+                        <h2>Información personal</h2>
+                        <label>Nombre completo:</label>
+                        <input type="text" id="nombre" required />
 
-              <label>Teléfono:</label>
-              <input type="tel" id="telefono" required />
+                        <label>Teléfono:</label>
+                        <input type="tel" id="telefono" required />
 
-              <label>Correo electrónico:</label>
-              <input type="email" id="email" required />
+                        <label>Correo electrónico:</label>
+                        <input type="email" id="email" required />
 
-              <button type="button" class="next">Siguiente</button>
+                        <button type="button" class="next">Siguiente</button>
+                    </div>
+
+                    <div class="form-step"> 
+                        <h2>Direcciones</h2>
+                        <label>Dirección de origen:</label> 
+                        <input type="text" id="origen" required />
+
+                        <label>Dirección de destino:</label> 
+                        <input type="text" id="destino" required />
+
+                        <label>Fecha de mudanza:</label> 
+                        <input type="date" id="fecha" required />
+                    
+                        <div class="button-group"> 
+                            <button type="button" class="prev">Anterior</button> 
+                            <button type="button" class="next">Siguiente</button>  
+                        </div>  
+                    </div>
+
+                    <div class="form-step">
+                        <h2>Detalles finales</h2>
+                        <label>Tipo de vivienda:</label> 
+                        <select id="tipo" required> 
+                            <option value="">Seleccione</option> 
+                            <option value="departamento">Departamento</option> 
+                            <option value="casa">Casa</option> 
+                            <option value="oficina">Oficina</option>  
+                        </select>
+
+                        <label>Detalles adicionales:</label>  
+                        <textarea id="detalles" rows="4" placeholder="Ejemplo: cantidad de muebles, si hay ascensor, etc."></textarea> 
+                        <div class="button-group"> 
+                            <button type="button" class="prev">Anterior</button> 
+                            <button type="submit">Enviar</button>
+                        </div> 
+                    </div> 
+                </form> 
             </div>
-
-            
-            <div class="form-step">            
-              <h2>Direcciones</h2>
-               <label>Dirección de origen:</label> 
-             <input type="text" id="origen" required />
-
-             <label>Dirección de destino:</label> 
-              <input type="text" id="destino" required />
-
-             <label>Fecha de mudanza:</label> 
-               <input type="date" id="fecha" required />
-           
-              <div class="button-group">               
-                <button type="button" class="prev">Anterior</button>      
-                <button type="button" class="next">Siguiente</button>             
-              </div>             
+            <div id="not-logged-in-message" class="hidden">
+                <h2>Acceso Restringido</h2>
+                <p>Para acceder al formulario de solicitud de mudanza, por favor, <a href="login.html">inicia sesión</a> o <a href="login.html">regístrate</a>.</p>
             </div>
+       </div>
+     </div>
 
-           
-            <div class="form-step">
-             
-              <h2>Detalles finales</h2>
-              <label>Tipo de vivienda:</label>            
-              <select id="tipo" required>               
-                <option value="">Seleccione</option>               
-                <option value="departamento">Departamento</option>               
-                <option value="casa">Casa</option>              
-                <option value="oficina">Oficina</option>               
-              </select>
-
-             <label>Detalles adicionales:</label>               
-              <textarea id="detalles" rows="4" placeholder="Ejemplo: cantidad de muebles, si hay ascensor, etc."></textarea>            
-              <div class="button-group">              
-                <button type="button" class="prev">Anterior</button> 
-                <button type="submit">Enviar</button>                 
-              </div>          
-            </div>          
-          </form>        
-        </div>
-      </div>
-    </div>
-
-    <script type="module">
-      const firebaseConfig = {
-        apiKey: "AIzaSyDKq4YA4Qk9ceD1XQcaEZnPMth1lqSN4rE",
-        authDomain: "mudanzas-caba.firebaseapp.com",
-        databaseURL: "https://mudanzas-caba-default-rtdb.firebaseio.com",
-        projectId: "mudanzas-caba",
-        storageBucket: "mudanzas-caba.firebasestorage.app",
-        messagingSenderId: "292614458356",
-        appId: "1:292614458356:web:e6466388d4b671fdc187a1",
-        measurementId: "G-4R9LY1W8MN",
-      };
-
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js";
-      import { getFirestore } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js";
-
-      const app = initializeApp(firebaseConfig);
-      const db = getFirestore(app);
-
-      // Exporta 'db' para que 'formulario.js' (si es un módulo) pueda importarlo
-      // o para que scripts tradicionales puedan accederlo via window
-      window.firebaseApp = app;
-      window.firebaseDb = db;
-    </script>
-    <script src="../js/formulario.js"></script>
-  </body>
+       <script type="module" src="../js/formulario.js"></script>
+ </body>
 </html>
