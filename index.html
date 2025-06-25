@@ -8,10 +8,15 @@
     <link rel="shortcut icon" href="images/camion.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* CSS para ocultar el elemento por defecto */
+        .hidden-menu-item {
+            display: none !important; /* Usamos !important para asegurar que sobreescriba cualquier otro estilo */
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Header with Navigation -->
     <header id="main-header">
         <div class="logo-container">
             <img src="images/movix-icon2.png" alt="MOVIX Logo">
@@ -21,14 +26,12 @@
             <ul>
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#servicio">Servicio</a></li>
-                <li><a href="pages/formulario.html">Formulario</a></li>
+                <li id="nav-formulario-link" class="hidden-menu-item"><a href="pages/formulario.html">Formulario</a></li>
                 <li><a href="pages/login.html">Acceso</a></li>
-                
             </ul>
         </nav>
     </header>
 
-    <!-- Hero Carousel - CORREGIDO -->
     <section class="hero" id="inicio">
         <div class="carousel">
             <div class="carousel-slide active">
@@ -63,10 +66,8 @@
         </div>
     </section>
 
-    <!-- Divider -->
     <div class="divider"></div>
 
-    <!-- Services Section -->
     <section class="services" id="formulario">
         <h2 class="section-title">Nuestros servicios</h2>
         <div class="services-grid">
@@ -104,11 +105,9 @@
         </div>
     </section>
 
-    <!-- Process Section -->
     <section class="process-section" id="servicio">
         <h2 class="section-title">¿Cómo funcionamos?</h2>
         <div class="process-steps">
-            <!-- Step 1 -->
             <div class="process-card">
                 <div class="process-logo">
                 </div>
@@ -120,7 +119,6 @@
                     tus necesidades y planificar el servicio ideal para vos.</p>
             </div>
 
-            <!-- Step 2 -->
             <div class="process-card">
                 <div class="process-logo">
                 </div>
@@ -132,7 +130,6 @@
                     responder cualquier consulta.</p>
             </div>
 
-            <!-- Step 3 -->
             <div class="process-card">
                 <div class="process-logo">
                 </div>
@@ -144,7 +141,6 @@
                     mejor solución posible.</p>
             </div>
 
-            <!-- Step 4 -->
             <div class="process-card">
                 <div class="process-logo">
                 </div>
@@ -156,7 +152,6 @@
                     tu mudanza.</p>
             </div>
 
-            <!-- Step 5 -->
             <div class="process-card">
                 <div class="process-logo">
                 </div>
@@ -170,28 +165,23 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div>MOVIX 2024</div>
             <div>Todos los derechos reservados</div>
         </div>
     </footer>
-    <!-- WhatsApp Icon -->
     <a href="https://api.whatsapp.com/send/?phone=5491135791114&text=%C2%A1Hola%21+Quisiera+saber+m%C3%A1s+sobre+las+mudanzas.&type=phone_number&app_absent=0" class="whatsapp-icon" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Back to Top Button - Now centered at bottom -->
     <div class="back-to-top-container">
         <div class="back-to-top" id="back-to-top">
             <i class="fas fa-arrow-up"></i>
         </div>
     </div>
 
-    <!-- Chatbox Container -->
     <div class="chatbox-container">
-        <!-- Chatbox -->
         <div class="chatbox" id="chatbox">
             <div class="chatbox-header">
                 <img src="images/movix-icon.png" alt="Movix Asistente">
@@ -202,8 +192,7 @@
                 <button class="chatbox-close" id="chatbox-close">&times;</button>
             </div>
             <div class="chatbox-body" id="chatbox-body">
-                <!-- Messages will be inserted here -->
-            </div>
+                </div>
             <div class="chatbox-footer">
                 <input type="text" class="chatbox-input" id="chatbox-input" placeholder="Escribe un mensaje...">
                 <button class="chatbox-send" id="chatbox-send">
@@ -217,12 +206,73 @@
             </div>
         </div>
 
-        <!-- Chatbox Button -->
         <div class="chatbox-button" id="chatbox-button">
             <img src="images/movix-icon.png" alt="Chat">
             <div class="notification" id="notification">1</div>
         </div>
     </div>
+
+    <script type="module">
+        // TU CONFIGURACIÓN DE FIREBASE (ASEGÚRATE QUE SEA EXACTAMENTE LA MISMA EN TODOS TUS ARCHIVOS)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDKq4YA4Qk9ceD1XQcaEZnPMth1lqSN4rE",
+            authDomain: "mudanzas-caba.firebaseapp.com",
+            databaseURL: "https://mudanzas-caba-default-rtdb.firebaseio.com",
+            projectId: "mudanzas-caba",
+            storageBucket: "mudanzas-caba.firebasestorage.app",
+            messagingSenderId: "292614458356",
+            appId: "1:292614458356:web:e6466388d4b671fdc187a1", // USAR ESTE APP_ID
+            measurementId: "G-4R9LY1W8MN" // USAR ESTE Measurement ID
+        };
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
+
+        // Inicializa Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Obtener la referencia al elemento del menú del formulario
+        const navFormularioLink = document.getElementById('nav-formulario-link');
+        const navAccesoLink = document.querySelector('nav ul li a[href="pages/login.html"]').parentElement; // El <li> padre del enlace "Acceso"
+
+        // Escuchar cambios en el estado de autenticación
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Usuario logueado: Muestra el enlace "Formulario", oculta "Acceso"
+                if (navFormularioLink) {
+                    navFormularioLink.classList.remove('hidden-menu-item');
+                }
+                if (navAccesoLink) {
+                    // Cambiamos "Acceso" a "Cerrar Sesión" y su funcionalidad
+                    navAccesoLink.innerHTML = '<a href="#" id="logout-link">Cerrar Sesión</a>';
+                    document.getElementById('logout-link').addEventListener('click', async (e) => {
+                        e.preventDefault();
+                        try {
+                            await auth.signOut();
+                            alert("Sesión cerrada correctamente.");
+                            // Redirigir a la página de inicio o refrescar
+                            window.location.href = 'index.html'; 
+                        } catch (error) {
+                            console.error("Error al cerrar sesión:", error);
+                            alert("Hubo un error al cerrar sesión.");
+                        }
+                    });
+                }
+                console.log("Usuario logueado en index.html:", user.email);
+            } else {
+                // Usuario no logueado: Oculta el enlace "Formulario", muestra "Acceso"
+                if (navFormularioLink) {
+                    navFormularioLink.classList.add('hidden-menu-item');
+                }
+                if (navAccesoLink) {
+                    // Asegurarse de que "Acceso" esté visible y sea el enlace de login
+                    navAccesoLink.innerHTML = '<a href="pages/login.html">Acceso</a>';
+                }
+                console.log("Usuario no logueado en index.html");
+            }
+        });
+    </script>
 
     <script src="js/script.js"></script>
 </body>
