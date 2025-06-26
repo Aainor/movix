@@ -3,10 +3,11 @@
 // --- 1. Importar las funciones necesarias de Firebase SDK v9 modular ---
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
+// Asegúrate de que 'collection', 'addDoc' y 'serverTimestamp' estén importadas aquí
 import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js";
 
 
-// --- 2. Tu Configuración de Firebase (misma que en login.js y la del HTML de tu amigo) ---
+// --- 2. Tu Configuración de Firebase (misma que en login.js y el HTML de tu amigo) ---
 const firebaseConfig = {
     apiKey: "AIzaSyDKq4YA4Qk9ceD1XQcaEZnPMth1lqSN4rE",
     authDomain: "mudanzas-caba.firebaseapp.com",
@@ -14,14 +15,14 @@ const firebaseConfig = {
     projectId: "mudanzas-caba",
     storageBucket: "mudanzas-caba.firebasestorage.app",
     messagingSenderId: "292614458356",
-    appId: "1:292614458356:web:e6466388d4b671fdc187a1", // <-- Usa este APP_ID del código de tu amigo.
-    measurementId: "G-4R9LY1W8MN", // <-- Usa este Measurement ID del código de tu amigo.
+    appId: "1:292614458356:web:e6466388d4b671fdc187a1", 
+    measurementId: "G-4R9LY1W8MN", 
 };
 
 // --- 3. Inicializa Firebase y obtiene instancias de Auth y Firestore ---
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app); // Ahora se obtiene con getAuth()
-const db = getFirestore(app); // Ahora se obtiene con getFirestore()
+const auth = getAuth(app); 
+const db = getFirestore(app); // 'db' ya está disponible aquí
 
 
 // --- 4. Referencias a los elementos del DOM ---
@@ -58,7 +59,7 @@ function validateStep(step) {
             isValid = false;
         }
     });
-    if (!isValid) return false; // Si ya hay un error, salir
+    if (!isValid) return false; 
 
     // Validaciones específicas de cada paso
     if (step === 0) {
@@ -95,13 +96,13 @@ function validateStep(step) {
         }
 
         const hoy = new Date();
-        hoy.setHours(0, 0, 0, 0); // Resetear horas para comparar solo fechas
+        hoy.setHours(0, 0, 0, 0); 
 
         const fechaMinimaPermitida = new Date(hoy);
-        fechaMinimaPermitida.setDate(hoy.getDate() + 3); // Al menos 3 días de anticipación
+        fechaMinimaPermitida.setDate(hoy.getDate() + 3); 
 
         const fechaSeleccionada = new Date(fecha);
-        fechaSeleccionada.setHours(0, 0, 0, 0); // Resetear horas para comparar solo fechas
+        fechaSeleccionada.setHours(0, 0, 0, 0); 
 
         if (fechaSeleccionada < fechaMinimaPermitida) {
             alert('La fecha de la mudanza debe tener al menos tres días de anticipación desde hoy.');
@@ -120,7 +121,7 @@ nextButtons.forEach(button => {
             currentStep++;
             showStep(currentStep);
         } else {
-            // alert('Por favor, completa todos los campos requeridos.'); // validateStep ya muestra el alert
+            // alert('Por favor, completa todos los campos requeridos.'); 
         }
     });
 });
@@ -138,11 +139,10 @@ multiStepForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     if (!validateStep(currentStep)) {
-        // La validación ya muestra un alert
         return;
     }
 
-    const user = auth.currentUser; // Obtener el usuario autenticado
+    const user = auth.currentUser; 
     if (!user) {
         console.error("No hay usuario autenticado. No se puede enviar el formulario.");
         alert("Por favor, inicia sesión para enviar tu solicitud.");
@@ -151,7 +151,7 @@ multiStepForm.addEventListener('submit', async (e) => {
 
     // Recolectar todos los datos del formulario
     const formData = {
-        userId: user.uid, // Guarda el UID del usuario logueado
+        userId: user.uid, 
         userName: user.displayName || document.getElementById('nombre').value.trim() || user.email,
         userEmail: document.getElementById('email').value.trim() || user.email,
         telefono: document.getElementById('telefono').value.trim(),
@@ -161,17 +161,15 @@ multiStepForm.addEventListener('submit', async (e) => {
         tipoVivienda: document.getElementById('tipo').value,
         detallesAdicionales: document.getElementById('detalles').value.trim(),
         estado: "pendiente",
-        // Usa serverTimestamp() de Firestore para la fecha del servidor (importado arriba)
         fechaSolicitud: serverTimestamp() 
     };
 
     try {
-        // Guardar los datos en Firestore en la colección 'solicitudes_mudanza'
-        const docRef = await addDoc(collection(db, "solicitudes_mudanza"), formData); // Sintaxis modular
+        // AQUÍ ES DONDE USAMOS DIRECTAMENTE LAS FUNCIONES IMPORTADAS
+        const docRef = await addDoc(collection(db, "solicitudes_mudanza"), formData); 
         console.log("Documento de cotización guardado con ID:", docRef.id);
         alert("¡Tu solicitud de mudanza ha sido enviada con éxito! Nos pondremos en contacto pronto.");
 
-        // Opcional: limpiar el formulario y volver al primer paso
         document.getElementById('multiStepForm').reset();
         currentStep = 0;
         showStep(currentStep);
@@ -190,11 +188,8 @@ if (fechaInput) {
 }
 
 // --- 9. Control de visibilidad del formulario basado en el estado de autenticación ---
-// Mover el showStep(currentStep) dentro del onAuthStateChanged para que no se muestre
-// antes de verificar el login.
 auth.onAuthStateChanged((user) => {
     if (user) {
-        // Usuario está logueado: Mostrar el formulario, ocultar el mensaje
         if (mainFormContent) {
             mainFormContent.classList.remove('hidden');
         }
@@ -203,7 +198,6 @@ auth.onAuthStateChanged((user) => {
         }
         console.log("Usuario logueado en formulario.html:", user.email);
 
-        // Opcional: Rellenar los campos de Nombre y Correo si están vacíos
         const nombreInput = document.getElementById('nombre');
         const emailInput = document.getElementById('email');
         if (nombreInput && !nombreInput.value && user.displayName) {
@@ -213,11 +207,9 @@ auth.onAuthStateChanged((user) => {
             emailInput.value = user.email;
         }
         
-        // Mostrar el primer paso del formulario solo cuando el usuario está logueado
         showStep(currentStep); 
 
     } else {
-        // Usuario NO está logueado: Ocultar el formulario, mostrar el mensaje y redirigir
         if (mainFormContent) {
             mainFormContent.classList.add('hidden');
         }
@@ -225,7 +217,6 @@ auth.onAuthStateChanged((user) => {
             notLoggedInMessage.classList.remove('hidden');
         }
         console.log("Usuario no logueado en formulario.html, redirigiendo a login.html");
-        // Redirigir a la página de login
-        window.location.href = 'login.html'; // Redirige automáticamente
+        window.location.href = '../pages/login.html'; // Asegúrate de la ruta correcta
     }
 });
